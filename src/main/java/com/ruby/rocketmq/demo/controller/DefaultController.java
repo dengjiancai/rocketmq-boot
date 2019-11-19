@@ -33,10 +33,10 @@ import java.util.Set;
  */
 @RestController
 @RequestMapping("/api/default")
-@Api(tags = "DefaultController", description = "Rocketmq")
+@Api(tags = "DefaultController")
 @Slf4j
 public class DefaultController {
-    @Value("${rocketmq.consumer.namesrvAddr}")
+    @Value("${rocketmq.namesrvAddr}")
     private String namesrvAddr;
     @Value("${rocketmq.producer.groupName}")
     private String producerGroupName;
@@ -90,6 +90,7 @@ public class DefaultController {
                 System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + "," + i);
                 // System.out.println(sendResult.getSendStatus()); //发送结果状态
                 // 打印返回结果，可以看到消息发送的状态以及一些相关信息
+                System.out.printf("%s%n", sendResult);
                 System.out.println("当前消息投递到的队列是 : " + sendResult.getMessageQueue().getQueueId());
             } catch (Exception e) {
                 e.printStackTrace();
