@@ -42,10 +42,10 @@ public class DefaultController {
     private String producerGroupName;
     @Value("${rocketmq.consumer.groupName}")
     private String consumerGroupName;
-    @Value("${rocketmq.topic}")
-    private String topic;
-    @Value("${rocketmq.tag}")
-    private String tag;
+    @Value("${rocketmq.topic.payinfo}")
+    private String topics;
+    @Value("${rocketmq.tag.sync}")
+    private String sync;
 
     private static final Map<MessageQueue, Long> offsetTable = new HashMap<MessageQueue, Long>();
 
@@ -69,8 +69,8 @@ public class DefaultController {
         // 发送10条消息到Topic为TopicTest，tag为TagA，消息内容为“Hello RocketMQ”拼接上i的值
         for (int i = 0; i < 1; i++) {
             try {
-                Message msg = new Message(this.topic, // topic
-                        tag, // tag
+                Message msg = new Message(this.topics, // topic
+                        sync, // tag
                         "i" + i, ("Hello RocketMQ " + i).getBytes("utf-8")// body
                 );
 
@@ -109,7 +109,7 @@ public class DefaultController {
         consumer.setNamesrvAddr(this.namesrvAddr);
         consumer.start();
         try {
-            Set<MessageQueue> mqs = consumer.fetchSubscribeMessageQueues(this.topic);
+            Set<MessageQueue> mqs = consumer.fetchSubscribeMessageQueues(this.topics);
             for (MessageQueue mq : mqs) {
                 // System.out.println("Consume from the queue: " + mq);
                 System.out.println("当前获取的消息的归属队列是: " + mq.getQueueId());
@@ -150,7 +150,7 @@ public class DefaultController {
                 }
             }
             // }
-
+            consumer.shutdown();
         } catch (MQClientException e) {
             e.printStackTrace();
         }

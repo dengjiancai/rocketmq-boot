@@ -1,12 +1,14 @@
 package com.ruby.rocketmq.demo;
 
-import org.apache.rocketmq.client.producer.DefaultMQProducer;
-import org.apache.rocketmq.client.producer.SendResult;
-import org.apache.rocketmq.common.message.Message;
-import org.apache.rocketmq.remoting.common.RemotingHelper;
+import com.alibaba.fastjson.JSONObject;
+import com.ruby.rocketmq.demo.model.JsonVo;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.math.BigDecimal;
+
+@Slf4j
 @SpringBootTest
 class DemoApplicationTests {
 
@@ -14,26 +16,23 @@ class DemoApplicationTests {
     void contextLoads() {
     }
 
-//    public static void main(String[] args) throws Exception {
-//        //Instantiate with a producer group name.
-//        DefaultMQProducer producer = new
-//                DefaultMQProducer("producer-group1");
-//        // Specify name server addresses.
-//        producer.setNamesrvAddr("127.0.0.1:32000");
-//        //Launch the instance.
-//        producer.start();
-//        for (int i = 0; i < 100; i++) {
-//            //Create a message instance, specifying topic, tag and message body.
-//            Message msg = new Message("TopicTest" /* Topic */,
-//                    "TagA" /* Tag */,
-//                    ("Hello RocketMQ " +
-//                            i).getBytes(RemotingHelper.DEFAULT_CHARSET) /* Message body */
-//            );
-//            //Call send message to deliver message to one of brokers.
-//            SendResult sendResult = producer.send(msg);
-//            System.out.printf("%s%n", sendResult);
-//        }
-//        //Shut down once the producer instance is not longer in use.
-//        producer.shutdown();
-//    }
+    public static void main(String[] args) throws Exception {
+        BigDecimal big= new BigDecimal(111);
+        JsonVo tmp = new JsonVo();
+        tmp.setAmt(big);
+        tmp.setInfo("faserf32");
+        tmp.setOrderNo("000000000faserf32");
+        String json = JSONObject.toJSONString(tmp);
+
+        System.out.println(json);
+        JsonVo jsonVo = JSONObject.parseObject(json, JsonVo.class);
+        System.out.println(jsonVo);
+        System.out.println("--------");
+        byte[] bytes = JSONObject.toJSONBytes(tmp);
+        System.out.println(bytes);
+        JsonVo jsonVo2 = JSONObject.parseObject(bytes, JsonVo.class);
+        System.out.println(jsonVo2);
+
+
+    }
 }

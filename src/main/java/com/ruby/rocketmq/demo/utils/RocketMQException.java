@@ -1,5 +1,7 @@
 package com.ruby.rocketmq.demo.utils;
 
+import com.ruby.rocketmq.demo.utils.constant.ErrorCode;
+
 public class RocketMQException extends AppException{
     private static final long serialVersionUID = 1L;
 

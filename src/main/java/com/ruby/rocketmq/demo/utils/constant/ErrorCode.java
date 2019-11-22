@@ -1,4 +1,4 @@
-package com.ruby.rocketmq.demo.utils;
+package com.ruby.rocketmq.demo.utils.constant;
 
 import java.io.Serializable;
 

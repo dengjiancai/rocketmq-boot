@@ -1,5 +1,7 @@
 package com.ruby.rocketmq.demo.utils;
 
+import com.ruby.rocketmq.demo.utils.constant.ErrorCode;
+
 public class AppException extends RuntimeException{
     /**
      *

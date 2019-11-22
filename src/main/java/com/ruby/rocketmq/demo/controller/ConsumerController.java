@@ -1,5 +1,6 @@
 package com.ruby.rocketmq.demo.controller;
 
+import com.ruby.rocketmq.demo.utils.ResMsg;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -13,24 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/producer")
-@Api(tags = "ProduceController")
+@RequestMapping("/api/consumer")
+@Api(tags = "Consumer")
 @Slf4j
 public class ConsumerController {
-    /**使用RocketMq的生产者*/
-    @Autowired
-    private DefaultMQProducer defaultMQProducer;
-    @Value("${rocketmq.topic}")
-    private String topic;
 
-    @PostMapping(value = "/push/consumer")
-    @ApiOperation(value = "push消费消息")
-    public void consumer() throws Exception{
-        String msg = "demo msg test";
-        log.info("开始发送消息："+msg);
-        Message sendMsg = new Message(topic,"*",msg.getBytes());
-        //默认3秒超时
-        SendResult sendResult = defaultMQProducer.send(sendMsg);
-        log.info("消息发送响应信息："+sendResult.toString());
-    }
 }

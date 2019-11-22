@@ -1,6 +1,8 @@
 package com.ruby.rocketmq.demo.utils;
 
-public enum RocketMQErrorEnum implements ErrorCode{
+import com.ruby.rocketmq.demo.utils.constant.ErrorCode;
+
+public enum RocketMQErrorEnum implements ErrorCode {
     /******** 公共 ********/
     PARAMM_NULL("MQ_001", "参数为空"),
 
